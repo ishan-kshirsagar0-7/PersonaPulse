@@ -1,0 +1,20 @@
+/*────────────────────────────────────────────
+ File: src/star-bg.css
+ Star-field backdrop for onboarding section
+────────────────────────────────────────────*/
+.onboarding-star-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.onboarding-star-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' fill='white' fill-opacity='0.85'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/svg%3E");
+  background-size: 2px 2px;
+  background-repeat: repeat;
+  opacity: 0.04;         /* subtle! */
+  pointer-events: none;
+  z-index: -1;
+}

@@ -1,0 +1,300 @@
+/* ignore this chat2-bg, i'm just keeping this around in case I need it */
+.chat2-bg {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(-45deg, #0e0e10, #1b1b1f, #0e0e10, #1b1b1f);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Real CSS starts from here */
+.chat-bg {
+  position: relative;
+  min-height: 100vh;
+  background:
+    url("/noise.png") center/cover no-repeat,
+    linear-gradient(135deg, #2c003e, #55006f, #2c003e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 2) main glass container, column flex so app-bar + body stack */
+.chat-container-glass {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1000px;
+  height: 80vh;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  background: rgba(18, 18, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* 3) pinned app-bar at top of the card */
+.chat-appbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0.95rem 1rem;
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.appbar-icon {
+  font-size: 1.25rem;
+  margin: 0 0.75rem;
+  color: #60a5fa;
+  cursor: pointer;
+}
+.appbar-title {
+  flex-grow: 1;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* 4) flex body: sidebar + chat section */
+.chat-body {
+  flex: 1 1 auto;
+  display: flex;
+  overflow: hidden;
+}
+
+/* 5) slimmer left sidebar */
+.sidebar-glass {
+  flex: 0 0 30%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  color: white;
+  overflow-y: auto;
+}
+
+/* 6) chat section next to sidebar */
+.chat-section {
+  flex: 1 1 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+/* 7) scrollable messages area */
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+/* 8) each message row */
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+.row-you   { justify-content: flex-end; }
+.row-other { justify-content: flex-start; }
+
+/* 9) avatar styling */
+.msg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.avatar-left  { margin-right: 0.75rem; }
+.avatar-right { margin-left: 0.75rem; }
+
+/* 10) bubble styling */
+.msg-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  max-width: 65%;
+  line-height: 1.4;
+}
+.bubble-you   { background:rgb(157, 132, 50);  color: #fff; }
+.bubble-other { background:rgba(190, 190, 190, 0.8);  color: rgb(0, 0, 0); }
+
+/* 11) 3-dot typing indicator */
+.typing-dots {
+  display: flex;
+  gap: 6px;
+}
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  animation: jump 1s infinite ease-in-out;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* 12) input + send button */
+.chat-input {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.chat-input input {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  outline: none;
+}
+.chat-input input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+.chat-input button {
+  background: #2563eb;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+
+/* 13) loader overlay (re-used) */
+.chat-loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  z-index: 9999;
+}
+.glass-container {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+}
+.loading-quip {
+  margin-left: 1rem;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.sidebar-glass {
+  /* Existing styles - ensure it has some padding if not already,
+     or we'll add padding to the content-area below */
+  /* Example: padding: 1rem; */
+  display: flex; /* To help center content if needed */
+  flex-direction: column;
+  /* overflow-y: auto; /* Already there, good */
+}
+
+.sidebar-fancy-content {
+  padding: 2rem 1.5rem; /* Generous padding */
+  text-align: center;   /* Center the block of text */
+  color: #e0e0e0;       /* A slightly brighter, softer white for text */
+  line-height: 1.75;    /* More breathing room between lines */
+  font-size: 0.95rem;   /* Slightly larger font for better readability */
+  /* letter-spacing: 0.02em; /* Optional: slightly wider letter spacing */
+  overflow-wrap: break-word; /* Ensure long words don't break layout */
+  hyphens: auto; /* Optional: for better text flow if using justify later */
+}
+
+/* Style for any potential markdown elements if ReactMarkdown's prose isn't enough */
+.sidebar-fancy-content .prose p { /* Targeting paragraphs within prose if it's used */
+  text-align: center !important; /* Force center if prose defaults to left */
+  color: #e0e0e0 !important;
+  line-height: 1.75 !important;
+  font-size: 0.95rem !important;
+}
+.sidebar-fancy-content .prose strong {
+  color: #ffffff; /* Make bold text stand out more */
+  font-weight: 600;
+}
+
+/* A very subtle gradient text effect.
+   This can sometimes reduce readability if not done carefully.
+   Apply this class to the ReactMarkdown component if you want to try it.
+   Requires a fairly light text on a dark background to work well.
+*/
+.sidebar-text-gradient {
+  background: linear-gradient(135deg, #d8b4fe, #a5b4fc); /* Light purple to light indigo */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent; /* Standard property */
+}
+
+/* If you want a gradient background for the sidebar-glass itself (subtle) */
+/*
+.sidebar-glass {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+              radial-gradient(ellipse at top left, rgba(168, 85, 247, 0.2), transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(99, 102, 241, 0.2), transparent 50%),
+              rgba(0, 0, 0, 0.5); // Fallback base glass color
+  background-blend-mode: screen, screen, normal;
+  backdrop-filter: blur(10px);
+  // ... other sidebar-glass styles
+}
+*/
+
+.sidebar-fancy-content {
+  padding: 1.5rem; /* Adjust padding as needed */
+  text-align: center; 
+  color: #e0e0e0;      
+  line-height: 1.7;   
+  font-size: 0.9rem; 
+  display: flex; /* Added for centering PFP */
+  flex-direction: column; /* Stack PFP and text */
+  align-items: center; /* Center items horizontally */
+}
+
+.sidebar-dream-pfp {
+  width: 200px; /* Enlarged PFP size */
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem; /* Space between PFP and text */
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust prose specific to sidebar if needed */
+.sidebar-fancy-content .prose {
+  width: 100%; /* Ensure prose takes full width of its container */
+}
+.sidebar-fancy-content .prose p {
+  text-align: center !important;
+  color: #e0e0e0 !important;
+  line-height: 1.7 !important;
+  font-size: 0.9rem !important;
+  margin-top: 0; /* Remove default top margin from prose p if PFP is above */
+}
+.sidebar-fancy-content .prose strong {
+  color: #ffffff;
+  font-weight: 600;
+}

@@ -1,0 +1,282 @@
+/* 1) Full-screen purple/noise gradient background */
+.dashboard-bg {
+  position: relative;
+  min-height: 100vh;
+  background:
+    url("/noise.png") center/cover no-repeat,
+    linear-gradient(135deg, #2c003e, #55006f, #2c003e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+/* 2) Enlarged glass panel container */
+.dashboard-container {
+  width: 100%;
+  max-width: 900px;         /* increased width */
+  background: rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(2px);
+  border-radius: 2px;
+  padding: 8rem 3rem;       /* increased padding */
+  text-align: center;
+  box-shadow:
+    0 6px 10px rgba( 0, 0, 0, 0.9 ),
+    inset 0 0 2rem rgba(255, 255, 255, 0.09);
+}
+
+/* 3) Main heading: larger, purple gradient name */
+.dashboard-title {
+  font-size: 3.3rem;        /* increased font-size */
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.4;
+}
+.dashboard-name {
+  display: inline-block;
+  background: linear-gradient(90deg, #a200ff, #e100ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 4) Subtitle: smaller than title, with vertical spacing */
+.dashboard-subtitle {
+  font-size: 1.4rem;        /* slightly larger subtitle */
+  font-weight: 400;
+  color: #ddd;
+  margin-top: 1rem;
+  margin-bottom: 3rem;      /* more breathing room */
+}
+
+/* 5) Search wrapper: flex, centered, wider */
+.dashboard-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 650px;         /* increased max-width */
+  margin: 0 auto;
+}
+
+/* 6) Animated, color-shifting glow keyframes */
+@keyframes glow {
+  0% {
+    box-shadow:
+      inset 4px 4px 8px rgba(0,0,0,0.7),
+      inset -4px -4px 8px rgba(255,255,255,0.05),
+      0 0 1rem rgba(162,0,255,0.6);
+  }
+  33% {
+    box-shadow:
+      inset 4px 4px 8px rgba(0,0,0,0.7),
+      inset -4px -4px 8px rgba(255,255,255,0.05),
+      0 0 1rem rgba(224,0,255,0.6);
+  }
+  66% {
+    box-shadow:
+      inset 4px 4px 8px rgba(0,0,0,0.7),
+      inset -4px -4px 8px rgba(255,255,255,0.05),
+      0 0 1rem rgba(102,0,153,0.6);
+  }
+  100% {
+    box-shadow:
+      inset 4px 4px 8px rgba(0,0,0,0.7),
+      inset -4px -4px 8px rgba(255,255,255,0.05),
+      0 0 1rem rgba(162,0,255,0.6);
+  }
+}
+
+/* 7) Input field: neumorphic, animated glow */
+.dashboard-search-input {
+  flex: 1;
+  padding: 1rem 1.25rem;    /* larger padding */
+  border: none;
+  border-radius: 50px;
+  background: #1f1f25;
+  color: #fff;
+  font-size: 1.125rem;
+  outline: none;
+  box-shadow:
+    inset 4px 4px 8px rgba(0,0,0,0.7),
+    inset -4px -4px 8px rgba(255,255,255,0.05);
+  animation: glow 4s ease infinite;
+  transition: background 0.3s ease;
+}
+.dashboard-search-input:focus {
+  background: #26262e;
+}
+
+/* 8) Arrow button: 3D shadow, consistent with purple theme */
+.dashboard-search-button {
+  margin-left: -4rem;       /* overlap slightly */
+  background:rgba(225, 0, 255, 0.49);
+  border: none;
+  width: 3.5rem;              /* larger button */
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 12px rgba(0,0,0,0.7),
+    -6px -6px 12px rgba(255,255,255,0.05);
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+}
+.dashboard-search-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    8px 8px 16px rgba(0,0,0,0.8),
+    -8px -8px 16px rgba(255,255,255,0.1);
+}
+
+/* src/styles/Dashboard.css */
+
+/* Ensure dashboard-bg fills the screen and centers its content */
+.dashboard-bg {
+  position: relative;
+  min-height: 100vh;
+  background:
+    url("/noise.png") center/cover no-repeat, /* Ensure noise.png is in public folder */
+    linear-gradient(135deg, #2c003e, #55006f, #2c003e);
+  display: flex;
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Horizontally center */
+  padding: 3rem;
+  overflow-y: auto; /* Allow scrolling if content overflows viewport */
+}
+
+/* Main glass panel - it will now grow taller if suggestions appear */
+.dashboard-container {
+  width: 100%;
+  max-width: 900px; 
+  background: rgba(0, 0, 0, 0.2); /* Slightly more opaque for better contrast with text */
+  backdrop-filter: blur(5px); /* Slightly more blur */
+  border-radius: 16px; /* More rounded */
+  padding: 3rem; /* Adjusted padding for a more modern feel, was 8rem 3rem */
+  /* padding-bottom will dynamically adjust, but ensure enough top/horizontal padding */
+  text-align: center;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.37), /* Softer, more spread shadow */
+    inset 0 0 1rem rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  display: flex; /* Use flexbox to manage children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  transition: height 0.3s ease-out; /* Smooth height transition (optional) */
+}
+
+.dashboard-title {
+  font-size: 3rem; /* Adjusted */
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+  margin-bottom: 0.5rem; /* Space below title */
+}
+.dashboard-name {
+  display: inline-block;
+  background: linear-gradient(90deg, #a200ff, #e100ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-subtitle {
+  font-size: 1.25rem; /* Adjusted */
+  font-weight: 400;
+  color: #ccc; /* Lighter for better contrast */
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem; /* Space before search */
+}
+
+/* Search wrapper: ensure it's centered and has a max-width */
+.dashboard-search-wrapper {
+  position: relative; /* For potential internal absolute positioning if needed later */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px; /* Consistent max-width for search and suggestions */
+  margin: 0 auto; /* Center it if dashboard-container doesn't use flex align-items:center */
+  flex-direction: column; /* To stack input and suggestions box */
+}
+
+/* Input field: neumorphic, animated glow */
+.dashboard-search-input {
+  flex: 1; /* Take available width if dashboard-search-wrapper used flex-row */
+  width: 100%; /* Ensure it takes full width of its wrapper */
+  padding: 1rem 1.5rem; /* Ample padding */
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  background: #1a1a1f; /* Darker input bg */
+  color: #fff;
+  font-size: 1.1rem;
+  outline: none;
+  box-shadow:
+    inset 3px 3px 6px rgba(0,0,0,0.6),
+    inset -3px -3px 6px rgba(40,40,45,0.8); /* Adjusted neumorphic shadow */
+  animation: glow 4s ease infinite; /* Keep existing glow */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* For z-index if needed */
+  z-index: 5; /* Ensure input is above its own glow or other elements if overlapping occurs */
+}
+.dashboard-search-input:focus {
+  background: #202025;
+   box-shadow:
+    inset 3px 3px 6px rgba(0,0,0,0.6),
+    inset -3px -3px 6px rgba(40,40,45,0.8),
+    0 0 1.5rem rgba(162,0,255,0.5); /* Stronger focus glow */
+}
+
+/* Glow animation (keep as is) */
+@keyframes glow {
+  0% { box-shadow: inset 3px 3px 6px rgba(0,0,0,0.6), inset -3px -3px 6px rgba(40,40,45,0.8), 0 0 1rem rgba(162,0,255,0.6); }
+  33% { box-shadow: inset 3px 3px 6px rgba(0,0,0,0.6), inset -3px -3px 6px rgba(40,40,45,0.8), 0 0 1rem rgba(224,0,255,0.6); }
+  66% { box-shadow: inset 3px 3px 6px rgba(0,0,0,0.6), inset -3px -3px 6px rgba(40,40,45,0.8), 0 0 1rem rgba(102,0,153,0.6); }
+  100% { box-shadow: inset 3px 3px 6px rgba(0,0,0,0.6), inset -3px -3px 6px rgba(40,40,45,0.8), 0 0 1rem rgba(162,0,255,0.6); }
+}
+
+/* Arrow button (if you decide to keep it) - this example assumes it's removed for live search */
+/*
+.dashboard-search-button { ... }
+*/
+
+/* Styling for the UserSuggestionItem itself could go in its own CSS or stay in Tailwind within the component */
+/* For example, in Dashboard.css or a global styles file for components: */
+/*
+.user-suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.user-suggestion-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.user-suggestion-item:last-child {
+  border-bottom: none;
+}
+.user-suggestion-pfp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+.user-suggestion-name {
+  font-weight: 600;
+  color: white;
+}
+.user-suggestion-summary {
+  font-size: 0.8rem;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+*/
