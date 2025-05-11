@@ -1,19 +1,15 @@
-# File: backend/api.py
-
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import os
 from dotenv import load_dotenv
 from typing import List, Optional, Dict, Any
-
-# Import all necessary functions from logic.py
 from logic import (
     kickstart_chatbot,             # For onboarding dream conversation
     invoke_user_chatbot,           # For registered PersonaPulse user bots
     generate_sidebar_content_logic,# For sidebar of user bots
     search_persona_profiles_logic, # For dashboard user search
-    start_dashboard_dream_chat     # NEW: For dashboard initiated dynamic dream personas
+    start_dashboard_dream_chat     # For dashboard initiated dynamic dream personas
 )
 
 load_dotenv()
@@ -22,13 +18,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Adjust for production
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# --- Request Schemas ---
 
 # For original /chat (onboarding dream conversation)
 class OnboardingDreamChatRequest(BaseModel):
@@ -56,7 +50,6 @@ class SidebarRequest(BaseModel):
     viewer_id: str
     profile_owner_id: str
 
-# --- Response Schemas ---
 
 class UserProfileSuggestion(BaseModel):
     user_id: str
@@ -76,14 +69,10 @@ class SidebarResponse(BaseModel): # For /get_sidebar_content
     sidebar_content: str
 
 
-# --- Endpoints ---
-
 # Endpoint for ONBOARDING Dream Conversation (uses original kickstart_chatbot)
 @app.post("/chat", response_model=DreamChatResponse)
 async def onboarding_dream_chat_endpoint(payload: OnboardingDreamChatRequest):
     try:
-        # This calls your original kickstart_chatbot, which expects user_id
-        # to refer to an existing dream_conversations record.
         result = kickstart_chatbot(
             user_id=payload.user_id,
             is_chat_empty=payload.is_chat_empty,
@@ -121,7 +110,7 @@ async def generate_ai_endpoint(payload: GenerateAIRequest):
             onboarding_mode=payload.onboarding_mode,
             chat_history=payload.chat_history
         )
-        return result # This function in logic.py now only returns {"bot_response": ...}
+        return result 
     except Exception as e:
         print(f"Error in /generate_ai endpoint: {e}")
         raise HTTPException(status_code=500, detail=str(e))
