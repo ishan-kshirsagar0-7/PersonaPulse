@@ -46,7 +46,7 @@ This project represents a solo endeavor into full-stack development, AI integrat
 *   **Frontend:** React, TypeScript, Vite, Tailwind CSS, shadcn/ui, React Router, Framer Motion
 *   **Backend:** Python, FastAPI, Google Gemini (Pro & Flash models)
 *   **Database & Auth:** Supabase (PostgreSQL)
-*   **AI & NLP:** Prompt Engineering for Gemini, Web Scraping (`googlesearch-python`, `trafilatura`) & Summarization for "Dream Persona" context.
+*   **AI & NLP:** Prompt Engineering for Gemini, Web Scraping (`googlesearch-python`, `trafilatura`) & Summarization for "Dream Persona" context using my own custom module (`suits-py`)
 *   **Deployment:** Vercel (Frontend & Backend Serverless Functions)
 
 ---
